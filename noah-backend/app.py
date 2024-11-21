@@ -2,6 +2,7 @@ from flask import Flask,jsonify,request
 from services.aws_s3 import process_latest_post
 from services.instagram import fetch_instagram_comments,fetch_instagram_dms,fetch_instagram_post
 from utils.translation import detect_translate_caption
+from services.data_processing import process_caption
 
 app = Flask(__name__)
 
@@ -12,12 +13,15 @@ def fetch_post_route(user_id):
         upload_status, message = process_latest_post()
 
         if upload_status:
-            translated_caption = detect_translate_caption()
+            translated_caption = detect_translate_caption() # lang detect and translate
+            cleaned_caption, keywords = process_caption(translated_caption) #clean, remove offensive words and extract keywords
             return jsonify({
                 "success": True, 
                 "data": posts, 
                 "message": "Uploaded to S3 successfully",
-                "translated_caption": translated_caption
+                "translated_caption": translated_caption,
+                "cleaned_caption": cleaned_caption,
+                "keywords": keywords
             }), 200
         else:
             return jsonify({"success": False, "data": posts, "error": message}), 500
@@ -46,7 +50,7 @@ def fetch_comment_route(user_id):
     
     
 
-# testing the translation via routes
+# testing 
 # @app.route("/translate-latest-caption", methods=["GET"])
 # def translate_latest_caption_route():
 #     try:
