@@ -1,6 +1,7 @@
 from flask import Flask,jsonify,request
 from services.aws_s3 import process_latest_post
 from services.instagram import fetch_instagram_comments,fetch_instagram_dms,fetch_instagram_post
+from utils.translation import detect_translate_caption
 
 app = Flask(__name__)
 
@@ -11,7 +12,13 @@ def fetch_post_route(user_id):
         upload_status, message = process_latest_post()
 
         if upload_status:
-            return jsonify({"success": True, "data": posts, "message": "Uploaded to S3 successfully"}), 200
+            translated_caption = detect_translate_caption()
+            return jsonify({
+                "success": True, 
+                "data": posts, 
+                "message": "Uploaded to S3 successfully",
+                "translated_caption": translated_caption
+            }), 200
         else:
             return jsonify({"success": False, "data": posts, "error": message}), 500
 
@@ -36,6 +43,21 @@ def fetch_comment_route(user_id):
         return jsonify({"success":True,"data":comments}),200
     except Exception as e:
         return jsonify({"success":False,"error":str(e)}),500
+    
+    
+
+# testing the translation via routes
+# @app.route("/translate-latest-caption", methods=["GET"])
+# def translate_latest_caption_route():
+#     try:
+#         translated_caption = detect_translate_caption()
+#         if translated_caption:
+#             return jsonify({"success": True, "translated_caption": translated_caption}), 200
+#         else:
+#             return jsonify({"success": False, "error": "No caption or translation failed"}), 500
+#     except Exception as e:
+#         return jsonify({"success": False, "error": str(e)}), 500
+
     
     
 if __name__ == "__main__":
