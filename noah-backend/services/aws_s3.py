@@ -52,7 +52,7 @@ def upload_to_s3(media_url, file_name):
 
 def process_latest_post():
     try:
-        latest_post = posts_collection.find_one(sort=[("_id", -1)])  # Fetch the latest post
+        latest_post = posts_collection.find_one(sort=[("_id", -1)])  # Fetching the latest post
         if latest_post and "media_url" in latest_post and "id" in latest_post:
             media_url = latest_post["media_url"]
             media_id = latest_post["id"]

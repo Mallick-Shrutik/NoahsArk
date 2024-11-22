@@ -15,6 +15,7 @@ AWS_S3_BUCKET = os.getenv("AWS_S3_BUCKET")
 
 MONGODB_URI = os.getenv("MONGODB_URI")
 MONGO_DB = os.getenv("MONGO_DB")
+HUGGING_FACE_TOKEN = os.getenv("HUGGING_FACE_TOKEN")
 
 #fetching the list of offensive words from a seperate file. We can later fetch this from some online repository or API readily available
 def offensive_list(file_path='offensive.txt'):
