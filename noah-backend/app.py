@@ -7,8 +7,11 @@ from utils.translation import detect_translate_caption
 from services.data_processing import process_caption
 from utils.data_privacy import mask_personal_data
 
-app = Flask(__name__)
+from flask_cors import CORS
 
+
+app = Flask(__name__)
+CORS(app)
 # app.add_url_rule(
 #     "/graphql",
 #     view_func=GraphQLView.as_view("graphql", schema=schema, graphiql=True),
@@ -16,6 +19,7 @@ app = Flask(__name__)
 
 @app.route("/fetch-posts/<user_id>", methods=["GET"])
 def fetch_post_route(user_id):
+    print("Received request for fetch-posts with user_id:", user_id)
     try:
         posts = fetch_instagram_post(user_id)
         upload_status, message = process_latest_post()

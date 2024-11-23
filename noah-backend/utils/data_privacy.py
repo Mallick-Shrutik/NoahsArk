@@ -39,6 +39,6 @@ def mask_personal_data(text):
     
     return anonymized_text
 
-df["caption"] = df["caption"].apply(mask_personal_data)
+# df["caption"] = df["caption"].apply(mask_personal_data)
 
-print(df.to_string())
+#print(df.to_string())
