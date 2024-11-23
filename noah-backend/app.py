@@ -47,17 +47,21 @@ def fetch_post_route(user_id):
 @app.route("/access-langchain", methods=["GET"])
 def generate_text_langchain():
     try:
-        
+        print("Received request for LLM")
         from utils.large_language_model import forming_caption, generate_seo_caption
+        
         final_caption = forming_caption()
-        optimized_caption = generate_seo_caption(final_caption)
-        if optimized_caption:
-            return jsonify({
-                "success": True, 
-                "optimized_caption": optimized_caption
-            }), 200
+        if final_caption:
+            optimized_caption = generate_seo_caption(final_caption)
+            if optimized_caption:
+                return jsonify({
+                    "success": True, 
+                    "optimized_caption": optimized_caption
+                }), 200
+            else:
+                return jsonify({"success": False, "error": "Error in generating SEO optimized caption"}), 500
         else:
-            return jsonify({"success": False, "error": "Error in generating Langchain response"}), 500
+            return jsonify({"success": False, "error": "Error in forming caption"}), 500
     except Exception as e:
         return jsonify({"success": False, "error": f"Error in generating Langchain response {e}"}), 500
 

@@ -2,6 +2,8 @@ from langchain_community.llms import HuggingFacePipeline
 from langchain_core.prompts import PromptTemplate
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import torch
+import sys
+sys.path.append("..")
 from db import posts_collection
 from utils.img2text import generate_caption
 
@@ -51,6 +53,6 @@ def generate_seo_caption(caption):
     seo_caption = llm(prompt) 
     return seo_caption
 
-final_caption = forming_caption()
-optimized_caption = generate_seo_caption(final_caption)
+# final_caption = forming_caption()
+# optimized_caption = generate_seo_caption(final_caption)
 # print("Optimized SEO Caption:", optimized_caption)
