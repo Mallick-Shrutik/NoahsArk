@@ -1,4 +1,6 @@
-from flask import Flask,jsonify,request
+from flask import Flask,jsonify
+# from flask_graphql import GraphQLView
+# from graph_ql.schema import schema
 from services.aws_s3 import process_latest_post
 from services.instagram import fetch_instagram_comments,fetch_instagram_dms,fetch_instagram_post
 from utils.translation import detect_translate_caption
@@ -6,6 +8,11 @@ from services.data_processing import process_caption
 from utils.data_privacy import mask_personal_data
 
 app = Flask(__name__)
+
+# app.add_url_rule(
+#     "/graphql",
+#     view_func=GraphQLView.as_view("graphql", schema=schema, graphiql=True),
+# )
 
 @app.route("/fetch-posts/<user_id>", methods=["GET"])
 def fetch_post_route(user_id):
