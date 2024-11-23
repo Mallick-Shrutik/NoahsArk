@@ -3,6 +3,7 @@ from services.aws_s3 import process_latest_post
 from services.instagram import fetch_instagram_comments,fetch_instagram_dms,fetch_instagram_post
 from utils.translation import detect_translate_caption
 from services.data_processing import process_caption
+from utils.data_privacy import mask_personal_data
 
 app = Flask(__name__)
 
@@ -13,22 +14,41 @@ def fetch_post_route(user_id):
         upload_status, message = process_latest_post()
 
         if upload_status:
-            translated_caption = detect_translate_caption() # lang detect and translate
-            cleaned_caption, keywords = process_caption(translated_caption) #clean, remove offensive words and extract keywords
+            translated_caption = detect_translate_caption()
+            cleaned_caption, keywords = process_caption(translated_caption)
+            masked_caption = mask_personal_data(cleaned_caption)
             return jsonify({
                 "success": True, 
                 "data": posts, 
                 "message": "Uploaded to S3 successfully",
                 "translated_caption": translated_caption,
                 "cleaned_caption": cleaned_caption,
-                "keywords": keywords
+                "keywords": keywords,
+                "masked_caption": masked_caption,
             }), 200
         else:
             return jsonify({"success": False, "data": posts, "error": message}), 500
 
-        # return jsonify({"success":True, "data":posts}),200
     except Exception as e:
         return jsonify({"success":False,"error": str(e)}),500
+    
+    
+@app.route("/access-langchain", methods=["GET"])
+def generate_text_langchain():
+    try:
+        
+        from utils.large_language_model import forming_caption, generate_seo_caption
+        final_caption = forming_caption()
+        optimized_caption = generate_seo_caption(final_caption)
+        if optimized_caption:
+            return jsonify({
+                "success": True, 
+                "optimized_caption": optimized_caption
+            }), 200
+        else:
+            return jsonify({"success": False, "error": "Error in generating Langchain response"}), 500
+    except Exception as e:
+        return jsonify({"success": False, "error": f"Error in generating Langchain response {e}"}), 500
 
 
 @app.route("/fetch-dms/<user_id>", methods=["GET"])

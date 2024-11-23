@@ -40,10 +40,10 @@ def upload_to_s3(media_url, file_name):
             )
             return True
         else:
-            print(f"Failed to download image. HTTP status code: {response.status_code}")
+            print(f"Cannot download image as HTTP status code: {response.status_code}")
             return False
     except NoCredentialsError:
-        print("AWS credentials not found")
+        print("AWS credentials not available")
         return False
     except Exception as e:
         print(f"Error uploading to S3: {e}")
@@ -61,10 +61,10 @@ def process_latest_post():
             upload_success = upload_to_s3(media_url, file_name)
 
             if upload_success:
-                return True, f"Successfully uploaded media with ID {media_id} to S3"
+                return True, f"Uploaded media with ID {media_id} to S3"
             else:
                 return False, f"Failed to upload media with ID {media_id} to S3"
         else:
-            return False, "No valid media found from the DB in the latest post"
+            return False, "No media in DB"
     except Exception as e:
         return False, f"Error during processing the latest post: {str(e)}"
