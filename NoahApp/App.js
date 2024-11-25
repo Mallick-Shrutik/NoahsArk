@@ -2,6 +2,8 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import PostDisplay from './src/components/PostDisplay.js';
 import UseAI from './src/components/UseAI';
+import SuccessScreen from './src/components/SuccessScreen';
+import ErrorScreen from './src/components/ErrorScreen';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -14,6 +16,8 @@ export default function App() {
                 <Stack.Navigator initialRouteName="PostDisplay" screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="PostDisplay" component={PostDisplay} />
                     <Stack.Screen name="UseAI" component={UseAI} />
+                    <Stack.Screen name="Success" component={SuccessScreen} />
+                    <Stack.Screen name="Error" component={ErrorScreen} />
                 </Stack.Navigator>
                 <Footer />
             </View>

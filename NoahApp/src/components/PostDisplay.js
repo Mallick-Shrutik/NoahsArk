@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, Button, Image, StyleSheet, ActivityIndicator, StatusBar } from 'react-native';
-import { fetchPosts, accessLangchain } from '../services/api';
-
+import { View, Text, Button, Image, StyleSheet, ActivityIndicator, StatusBar, TextInput, Alert } from 'react-native';
+import { fetchPosts,submitProductListing  } from '../services/api';
+import { useNavigation } from '@react-navigation/native';
 
 const PostDisplay = () => {
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [title, setTitle] = useState('');
+    const [price, setPrice] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [conditionType, setConditionType] = useState('');
+
+    const navigation = useNavigation();
 
     const handleFetchPost = async () => {
         setLoading(true);
@@ -13,12 +19,38 @@ const PostDisplay = () => {
         setPost(postDetails);
         setLoading(false);
     };
-    const handleEdit = () => {
-    };
 
     const handleSubmit = () => {
+        if (!title || !price || !quantity || !conditionType) {
+            Alert.alert('Error', 'Please fill in all mandatory fields: Title, Price, Quantity, and Condition Type.');
+            return;
+        }
+
+        // Display confirmation dialog
+        Alert.alert(
+            "Are you sure to list the product?",
+            "This product will now be listed on Amazon",
+            [
+                { text: "Cancel", style: "cancel" },
+                {
+                    text: "OK",
+                    onPress: () => {
+                        // Call function to trigger Amazon SP-API
+                        triggerAmazonSPAPI();
+                    }
+                }
+            ]
+        );
     };
 
+    const triggerAmazonSPAPI = async () => {
+            try {
+                const response = await submitProductListing(title, price, quantity, conditionType);
+                navigation.navigate('Success', { message: "Product listing has been submitted successfully." });
+            } catch (error) {
+                navigation.navigate('Error', { message: "Failed to submit product listing." });
+            }
+        };
 
     return (
         <View style={styles.container}>
@@ -44,19 +76,42 @@ const PostDisplay = () => {
                                 <Text style={styles.captionText}>{post.caption}</Text>
                             </View>
 
+                            <View style={styles.inputContainer}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Title"
+                                    value={title}
+                                    onChangeText={setTitle}
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Price"
+                                    value={price}
+                                    onChangeText={setPrice}
+                                    keyboardType="numeric"
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Quantity"
+                                    value={quantity}
+                                    onChangeText={setQuantity}
+                                    keyboardType="numeric"
+                                />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Condition Type"
+                                    value={conditionType}
+                                    onChangeText={setConditionType}
+                                />
+                            </View>
+
                             <View style={styles.buttonContainer}>
-                                {/*<Button title="Edit" onPress={handleEdit} buttonStyle={styles.editButton} />*/}
-                                <Button title="Submit" onPress={handleSubmit} buttonStyle={styles.submitButton} titleStyle={styles.submitButtonText} />
+                                <Button title="Submit to Amazon" onPress={handleSubmit} color="#6200ee" />
                             </View>
                         </View>
                     </View>
                 )}
             </View>
-
-            {/* <View style={styles.footer}>
-                <Text style={styles.footerText}>Home</Text>
-                <Text style={styles.footerText}>Use AI</Text>
-            </View>*/}
         </View>
     );
 };
@@ -65,7 +120,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fffff',
-        border: 'none',
         width: '100%',
         margin: 0,
         padding: 0,
@@ -76,6 +130,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: 100,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
     },
     headerText: {
         fontSize: 24,
@@ -83,6 +142,10 @@ const styles = StyleSheet.create({
         color: '#4a148c',
         marginTop: 40
     },
+    imageAndTextContainer: {
+         alignItems: 'center',
+         justifyContent: 'center',
+     },
     content: {
         flex: 1,
         alignItems: 'center',
@@ -94,10 +157,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     postImage: {
-        width: 400,
-        height: 400,
+        width: 200,
+        height: 200,
         borderRadius: 12,
         marginBottom: 16,
+        marginTop:100,
     },
     captionText: {
         fontSize: 16,
@@ -106,45 +170,24 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingHorizontal: 20,
     },
+    inputContainer: {
+        width: '100%',
+        paddingHorizontal: 20,
+        marginTop: 16,
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#4a148c',
+        borderRadius: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        marginBottom: 10,
+    },
     buttonContainer: {
         marginTop: 16,
         paddingHorizontal: 16,
         alignItems: 'center',
     },
-    button: {
-        backgroundColor: '#6200ee',
-        borderRadius: 30,
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        alignItems: 'center',
-        justifyContent: 'center',
-        shadowColor: '#6200ee',
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 5,
-    },
-    buttonText: {
-        color: '#ffffff',
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    footer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        paddingVertical: 12,
-        backgroundColor: '#e1bee7',
-        height: 100,
-        width: '100%'
-    },
-    footerText: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: '#4a148c',
-    },
 });
-
 
 export default PostDisplay;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Button, Image, StyleSheet, ActivityIndicator, StatusBar } from 'react-native';
-import { fetchPosts, accessLangchain } from '../services/api';
+import { accessLangchain } from '../services/api';
 
 export default function UseAI() {
 

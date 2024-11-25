@@ -46,7 +46,7 @@ def fetch_post_route(user_id):
     
     
 
-@app.route('/submit-to-amazon', methods=['GET'])
+@app.route('/submit-to-amazon', methods=['POST'])
 def submit_to_amazon_route():
     data = request.json 
 

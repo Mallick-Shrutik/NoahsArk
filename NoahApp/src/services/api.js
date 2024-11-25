@@ -1,5 +1,5 @@
-import { API_BASE_URL } from '@env';
-
+//import { API_BASE_URL } from '@env';
+import axios from 'axios';
 
 export const fetchPosts = async (userId) => {
     try {
@@ -30,6 +30,21 @@ export const fetchPosts = async (userId) => {
     }
 };
 
+export const submitProductListing = async (title, price, quantity, conditionType) => {
+    try {
+        const response = await axios.post(`${API_BASE_URL}/submit-to-amazon`, {
+            title,
+            price,
+            quantity,
+            conditionType
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error("Failed to submit product listing:", error);
+        throw error;
+    }
+};
 
 export const accessLangchain = async () => {
     try {
