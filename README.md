@@ -1,5 +1,5 @@
-#NoahApp
-##This repository contains the code for NoahApp, a React Native application with a backend built using Flask. Follow the steps below to set up and run the application.
+# NoahApp
+## This repository contains the code for NoahApp, a React Native application with a backend built using Flask. Follow the steps below to set up and run the application.
 
 Prerequisites
 •	AWS Account: Required to set up an EC2 instance for the backend.
@@ -11,6 +11,7 @@ Table of Contents
 3.	Testing and Accessing NoahApp
 ________________________________________
 1. Backend Setup on AWS EC2
+   
 Step 1: Launch an EC2 Instance
 1.	Log into your AWS Console.
 2.	Navigate to EC2 Dashboard and click Launch Instance.
@@ -20,23 +21,29 @@ Step 1: Launch an EC2 Instance
 o	Allow HTTP and HTTPS traffic in the Security Group.
 o	Set up SSH access to connect to your instance.
 6.	Launch the instance.
+
+   
 Step 2: Connect to Your EC2 Instance
 Once your instance is running, connect to it using SSH:
-sh
+`sh`
 Copy code
-ssh -i your-key.pem ec2-user@your-ec2-public-dns
+`ssh -i your-key.pem ec2-user@your-ec2-public-dns`
+
+
 Step 3: Install Dependencies and Set Up the Backend
 Run the following commands on your EC2 instance to install the necessary packages and set up a virtual environment:
 sh
 Copy code
 # Update packages
-sudo yum update -y
+`sudo yum update -y`
 
 # Install Python and pip
-sudo yum install python3-pip -y
+`sudo yum install python3-pip -y`
 
 # Install virtualenv
-sudo pip3 install virtualenv
+`sudo pip3 install virtualenv`
+
+
 Step 4: Set Up the Python Environment and Run the Backend
 1.	Create a virtual environment and activate it:
 sh
