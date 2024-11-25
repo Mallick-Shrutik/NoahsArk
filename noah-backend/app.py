@@ -1,4 +1,4 @@
-from flask import Flask,jsonify
+from flask import Flask,jsonify,request
 # from flask_graphql import GraphQLView
 # from graph_ql.schema import schema
 from services.aws_s3 import process_latest_post
@@ -6,6 +6,7 @@ from services.instagram import fetch_instagram_comments,fetch_instagram_dms,fetc
 from utils.translation import detect_translate_caption
 from services.data_processing import process_caption
 from utils.data_privacy import mask_personal_data
+from services.amazon import insert_listing_to_database
 
 from flask_cors import CORS
 
@@ -43,6 +44,22 @@ def fetch_post_route(user_id):
     except Exception as e:
         return jsonify({"success":False,"error": str(e)}),500
     
+    
+
+@app.route('/submit-to-amazon', methods=['GET'])
+def submit_to_amazon_route():
+    data = request.json 
+
+    result = insert_listing_to_database(data)
+
+    # return the result to the app
+    if result["status"] == "success":
+        return jsonify({"status": "success", "mongo_id": result["mongo_id"], "amazon_response": result["amazon_response"]})
+    else:
+        return jsonify({"status": "error", "message": result["message"]}), 500
+    
+    
+
     
 @app.route("/access-langchain", methods=["GET"])
 def generate_text_langchain():
