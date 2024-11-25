@@ -25,62 +25,58 @@ o	Set up SSH access to connect to your instance.
    
 Step 2: Connect to Your EC2 Instance
 Once your instance is running, connect to it using SSH:
-`sh`
-Copy code
 `ssh -i your-key.pem ec2-user@your-ec2-public-dns`
 
 
 Step 3: Install Dependencies and Set Up the Backend
 Run the following commands on your EC2 instance to install the necessary packages and set up a virtual environment:
-sh
-Copy code
-# Update packages
+## Update packages
 `sudo yum update -y`
 
-# Install Python and pip
+## Install Python and pip
 `sudo yum install python3-pip -y`
 
-# Install virtualenv
+## Install virtualenv
 `sudo pip3 install virtualenv`
 
 
 Step 4: Set Up the Python Environment and Run the Backend
 1.	Create a virtual environment and activate it:
 sh
-Copy code
+`
 python3 -m venv venv
 source venv/bin/activate
-2.	Install required Python packages:
-sh
-Copy code
+`
+3.	Install required Python packages:
+`
 cd noah-backend/
 pip install -r requirements.txt
 pip install flask gunicorn
+`
 3.	Start the Flask application:
-sh
-Copy code
-python app.py
+
+`
+python app.py`
 Note: Make sure the backend is accessible publicly on port 5000 or your specified port.
 Your backend is now up and running on the EC2 instance. Make sure to note the public IP address or DNS of your EC2 instance as it will be needed for configuring the React Native app.
 ________________________________________
 2. Running the React Native App
-1.	Clone the repository to your local development environment:
-sh
-Copy code
-git clone https://github.com/your-username/NoahApp.git
-cd NoahApp
-2.	Install the required dependencies for the React Native app:
-sh
-Copy code
-npm install
+1. Clone the repository to your local development environment:
+
+`git clone https://github.com/your-username/NoahApp.git`
+cd NoahApp`
+
+2. 	Install the required dependencies for the React Native app:
+`npm install`
+
 3.	Update the backend URL in your app's configuration file to point to the EC2 instance's public IP:
-javascript
-Copy code
-// In config.js or relevant configuration file
-export const BACKEND_URL = 'http://your-ec2-public-ip:5000';
+
+`// In config.js or relevant configuration file
+export const BACKEND_URL = 'http://your-ec2-public-ip:5000';`
+
 4.	Run the app on a physical device:
-o	iOS: Use react-native run-ios (requires macOS).
-o	Android: Use react-native run-android.
+o	iOS: Use `react-native run-ios` (requires macOS).
+o	Android: Use `react-native run-android`
 Ensure that your mobile device allows installations from external sources.
 Note: Ensure that both your device and the EC2 instance are accessible within the same network or use public IPs for connectivity.
 ________________________________________
