@@ -85,6 +85,11 @@ export const BACKEND_URL = 'http://your-ec2-public-ip:5000';`
 
 Ensure that your mobile device allows installations from external sources.
 Note: Ensure that both your device and the EC2 instance are accessible within the same network or use public IPs for connectivity.
+
+NOTE:
+Instead of SP API, the product when submitted will be inserted in the database with all the required parameters for the API as below
+![image](https://github.com/user-attachments/assets/3e6d14f3-39e4-4ea9-9dd2-9be828a6ddb8)
+
 ________________________________________
 3. Testing and Accessing NoahApp
    After deploying the backend and running the mobile app, you can start interacting with NoahApp:
