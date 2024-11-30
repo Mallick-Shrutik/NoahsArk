@@ -2,7 +2,8 @@
 ## This repository contains the code for NoahApp, a React Native application with a backend built using Flask. Follow the steps below to set up and run the application.
 
 # APP QR
-![image](https://github.com/user-attachments/assets/b2ec7492-be31-4eef-86dd-3fc73d2fb22c)
+![image](https://github.com/user-attachments/assets/f2240f4b-5da0-4a0c-ab67-471465181b38)
+
 
 
 Prerequisites
