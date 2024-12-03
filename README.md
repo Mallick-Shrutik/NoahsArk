@@ -6,7 +6,8 @@ https://drive.google.com/file/d/1KlUDfSUcaLqXuyU1JUMDakLyYiY1Qk_c/view?usp=shari
 
 
 # APP QR
-![image](https://github.com/user-attachments/assets/9ec14fa7-85e0-4d63-921e-d7100a8d2ae3)
+![image](https://github.com/user-attachments/assets/c68bb9ed-14ec-4c2b-807f-e8ddcba8647b)
+
 
 
 
