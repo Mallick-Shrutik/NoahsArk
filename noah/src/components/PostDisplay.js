@@ -14,7 +14,6 @@ const PostDisplay = () => {
     const navigation = useNavigation();
 
     const handleFetchPost = async () => {
-        const userId = "17841471036101129"
         setLoading(true);
         const postDetails = await fetchPosts(userId);
         setPost(postDetails);
