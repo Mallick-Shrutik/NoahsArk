@@ -1,7 +1,6 @@
 import { API_BASE_URL } from '@env';
 import axios from 'axios';
 
-const API_BASE_URL = "http://65.0.110.118:5000"
 export const fetchPosts = async (userId) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/fetch-posts/${userId}`);
