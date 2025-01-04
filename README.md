@@ -1,7 +1,40 @@
-## Noah helps to connect small and medium businesses to make an automated connection between social media to ecommerce for listing the products.
+# Noah - Social Media to Ecommerce Automation 🚀
 
-For business who lists their product on social media but unable to track if someone wants to place the order through DMs or comments and for influencers having huge followers, replying to the fans become a non humanable task.
+Noah helps **small and medium businesses** connect their social media presence to **ecommerce platforms** by automating product listings and customer interactions.
 
-Noah helps to fetch the posts from Social media and extract data and media and post it to ecommerce. Also using generative AI, it helps to reply the queries/messages which are relevant to the product in the social media directly.
+## Problem 💡
 
-PS: The app is in a prototype phase
+- **Businesses** list their products on social media but struggle to track orders placed through DMs or comments.
+- **Influencers** with large followings find it challenging to manually reply to every fan inquiry or comment about the products they promote.
+
+## Solution 🔧
+
+Noah automates the process by:
+
+1. **Fetching posts** from social media platforms
+2. **Extracting data and media** (such as images, product names, and descriptions)
+3. **Automatically listing products** on ecommerce sites
+4. Using **Generative AI** to **respond to customer queries/messages** related to the products directly on social media.
+
+---
+
+## Features 🌟
+
+- **Social Media Integration**: Fetch and process posts from Instagram, Facebook, Twitter, etc.
+- **Automated Ecommerce Listings**: Seamlessly post the extracted product data to your ecommerce store.
+- **AI-Powered Replies**: Get automated, relevant responses to customer queries on social media.
+
+---
+
+## Current Status 🚧
+
+This app is currently in the **prototype phase** and is being passively developed.
+
+---
+
+## Demo 🎥
+
+Check out a live demo of Noah:
+[**Demo**]([https://drive.google.com/](https://drive.google.com/file/d/1KlUDfSUcaLqXuyU1JUMDakLyYiY1Qk_c/view?usp=sharing))
+
+---
