@@ -35,6 +35,6 @@ This app is currently in the **prototype phase** and is being passively develope
 ## Demo 🎥
 
 Check out a live demo of Noah:
-[**Demo**]([https://drive.google.com/](https://drive.google.com/file/d/1KlUDfSUcaLqXuyU1JUMDakLyYiY1Qk_c/view?usp=sharing))
+[**Demo**](https://drive.google.com/file/d/1KlUDfSUcaLqXuyU1JUMDakLyYiY1Qk_c/view?usp=sharing)
 
 ---
